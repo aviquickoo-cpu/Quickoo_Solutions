@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, MessageCircle, Send } from "lucide-react";
+import { MapPin, Mail, MessageCircle, Send } from "lucide-react";
 import { useState } from "react";
 
 export default function Contact() {
@@ -11,34 +11,33 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus("submitting");
-    
+
     const formData = new FormData(e.currentTarget);
+    const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const selection = String(formData.get("selection") ?? "");
+    const message = String(formData.get("message") ?? "");
     const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
+      name,
+      email,
       inquiryType,
-      selection: formData.get("selection"),
-      message: formData.get("message"),
+      selection,
+      message,
     };
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+    const whatsappText = [
+      "Hello Quickoo Solutions,",
+      "",
+      `Name: ${data.name}`,
+      `Email: ${data.email}`,
+      `Inquiry Type: ${data.inquiryType}`,
+      `Selection: ${data.selection}`,
+      "",
+      `Message: ${data.message}`,
+    ].join("\n");
 
-      if (response.ok) {
-        setFormStatus("success");
-      } else {
-        setFormStatus("idle");
-        alert("Failed to send message. Please try again later.");
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-      setFormStatus("idle");
-      alert("An error occurred. Please try again later.");
-    }
+    const whatsappUrl = `https://wa.me/918617651623?text=${encodeURIComponent(whatsappText)}`;
+    window.location.href = whatsappUrl;
   };
 
   const servicesList = [
@@ -63,7 +62,7 @@ export default function Contact() {
           >
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Contact Us</h1>
             <p className="text-xl text-slate-400">
-              Let's build something amazing together. Reach out to discuss your software, app, or AI project.
+              Let&apos;s build something amazing together. Reach out to discuss your software, app, or AI project.
             </p>
           </motion.div>
         </div>
@@ -129,26 +128,7 @@ export default function Contact() {
               
               <h3 className="text-2xl font-bold mb-6 relative z-10">Send a Message</h3>
               
-              {formStatus === "success" ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-emerald-500/10 border border-emerald-500/20 p-8 rounded-2xl text-center relative z-10"
-                >
-                  <div className="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Send size={24} />
-                  </div>
-                  <h4 className="text-xl font-bold text-white mb-2">Message Sent!</h4>
-                  <p className="text-emerald-200/80">Thank you for reaching out. Our team will get back to you shortly.</p>
-                  <button 
-                    onClick={() => setFormStatus("idle")}
-                    className="mt-6 text-emerald-400 text-sm font-semibold hover:text-emerald-300"
-                  >
-                    Send another message
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="flex flex-col gap-2">
                       <label htmlFor="name" className="text-sm text-slate-400 font-medium">Full Name</label>
@@ -230,13 +210,12 @@ export default function Contact() {
                     className="mt-2 bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] disabled:opacity-70 flex items-center justify-center gap-2"
                   >
                     {formStatus === "submitting" ? (
-                      <span className="animate-pulse">Sending...</span>
+                      <span className="animate-pulse">Opening WhatsApp...</span>
                     ) : (
-                      <>Send Message <Send size={18} /></>
+                      <>Send to WhatsApp <Send size={18} /></>
                     )}
                   </button>
                 </form>
-              )}
             </div>
           </div>
         </div>
