@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import BrandLogo from "@/components/ui/BrandLogo";
 
 const navLinks = [
   { name: "Home",       path: "/" },
@@ -39,12 +40,12 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
-              Q
-            </div>
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">
-              Quickoo Solutions
-            </span>
+            <BrandLogo
+              src="/brand-logos/Quickoo_Solutions.png"
+              alt="Quickoo Solutions"
+              wrapperClassName="w-[160px] h-10 sm:w-[190px] sm:h-12 group-hover:scale-[1.02] transition-transform"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

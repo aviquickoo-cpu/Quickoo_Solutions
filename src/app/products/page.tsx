@@ -1,10 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Star, ExternalLink, ShieldCheck, Cpu } from "lucide-react";
+import { ArrowRight, Star, ExternalLink, ShieldCheck, Cpu, CreditCard, Plug2 } from "lucide-react";
 import Link from "next/link";
+import type { ComponentType } from "react";
+import BrandLogo from "@/components/ui/BrandLogo";
 
-const products = [
+type ProductCard = {
+  name: string;
+  category: string;
+  description: string;
+  valueProp: string;
+  status: string;
+  statusColor: string;
+  icon: ComponentType<{ size?: number }>;
+  gradient: string;
+  link: string;
+  logo?: string;
+  logoAlt?: string;
+};
+
+const products: ProductCard[] = [
+  {
+    name: "Pan Bandhu",
+    category: "Utility Platform",
+    description: "Comprehensive PAN card services and utility management platform designed to make compliance and processing seamless.",
+    valueProp: "Your trusted partner for all PAN and utility services.",
+    status: "Live",
+    statusColor: "bg-emerald-500",
+    icon: CreditCard,
+    gradient: "from-blue-600 to-cyan-500",
+    link: "https://www.panbandhu.co.in/",
+    logo: "/brand-logos/PAN_Bandhu.png",
+    logoAlt: "Pan Bandhu"
+  },
   {
     name: "Quickoo Recharge",
     category: "Utility Platform",
@@ -13,17 +42,43 @@ const products = [
     status: "Live",
     statusColor: "bg-emerald-500",
     icon: ShieldCheck,
-    gradient: "from-blue-600 to-cyan-500",
+    gradient: "from-blue-500 to-cyan-500",
+    link: "https://www.quickoorecharge.co.in/",
+    logo: "/brand-logos/Quickoo_Recharge.png",
+    logoAlt: "Quickoo Recharge"
+  },
+  {
+    name: "API Provider",
+    category: "API Solutions",
+    description: "Robust API solutions for seamless integration into your business. Empower your digital infrastructure with reliable endpoints.",
+    valueProp: "Connect and scale with our enterprise-grade APIs.",
+    status: "Live",
+    statusColor: "bg-emerald-500",
+    icon: Plug2,
+    gradient: "from-rose-500 to-red-500",
+    link: "/contact?subject=API Provider Inquiry"
   },
   {
     name: "Quickoo Mart",
     category: "E-Commerce",
     description: "A comprehensive digital marketplace connecting buyers and sellers with an intuitive UI, fast delivery systems, and secure payment gateways.",
     valueProp: "A modern shopping experience for the digital age.",
-    status: "Featured",
-    statusColor: "bg-purple-500",
+    status: "Upcoming",
+    statusColor: "bg-amber-500",
     icon: Star,
     gradient: "from-emerald-500 to-teal-400",
+    link: "#"
+  },
+  {
+    name: "Quickoo Travel",
+    category: "Booking Engine",
+    description: "An end-to-end travel booking solution for flights, hotels, and holidays. Designed for speed, reliability, and the best user experience.",
+    valueProp: "Your gateway to seamless travel planning and bookings.",
+    status: "Ongoing",
+    statusColor: "bg-blue-500",
+    icon: ExternalLink,
+    gradient: "from-orange-500 to-pink-500",
+    link: "#"
   },
   {
     name: "Quickoo Assistant",
@@ -31,19 +86,10 @@ const products = [
     description: "An advanced, customizable AI virtual assistant built to automate repetitive tasks, manage schedules, and provide intelligent data insights.",
     valueProp: "Supercharge your productivity with artificial intelligence.",
     status: "Coming Soon",
-    statusColor: "bg-amber-500",
+    statusColor: "bg-purple-500",
     icon: Cpu,
     gradient: "from-indigo-600 to-purple-500",
-  },
-  {
-    name: "Quickoo Travel",
-    category: "Booking Engine",
-    description: "An end-to-end travel booking solution for flights, hotels, and holidays. Designed for speed, reliability, and the best user experience.",
-    valueProp: "Your gateway to seamless travel planning and bookings.",
-    status: "In Development",
-    statusColor: "bg-blue-500",
-    icon: ExternalLink,
-    gradient: "from-orange-500 to-pink-500",
+    link: "#"
   },
 ];
 
@@ -91,9 +137,17 @@ export default function Products() {
                 
                 <div className="relative z-10 p-10 flex flex-col h-full">
                   <div className="flex justify-between items-start mb-8">
-                    <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-white backdrop-blur-md border border-white/20">
-                      <product.icon size={28} />
-                    </div>
+                    {product.logo ? (
+                      <BrandLogo
+                        src={product.logo}
+                        alt={product.logoAlt ?? product.name}
+                        wrapperClassName="w-[180px] h-12"
+                      />
+                    ) : (
+                      <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-white backdrop-blur-md border border-white/20">
+                        <product.icon size={28} />
+                      </div>
+                    )}
                     <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white ${product.statusColor}`}>
                       {product.status}
                     </div>
@@ -107,16 +161,26 @@ export default function Products() {
                   </p>
                   
                   <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-8 backdrop-blur-sm">
-                    <p className="text-slate-300 font-medium italic">"{product.valueProp}"</p>
+                    <p className="text-slate-300 font-medium italic">&quot;{product.valueProp}&quot;</p>
                   </div>
                   
-                  <div className="mt-auto">
+                  <div className="mt-auto flex flex-col sm:flex-row gap-3">
+                    {product.link !== '#' && !product.link.startsWith('/') && (
+                      <Link
+                        href={product.link}
+                        target="_blank"
+                        className="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all border border-blue-600 group/btn"
+                      >
+                        Visit Site 
+                        <ExternalLink size={18} className="ml-2" />
+                      </Link>
+                    )}
                     <Link
-                      href="/contact"
-                      className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition-all border border-white/10 group/btn"
+                      href={`/contact?subject=Inquiry about ${product.name}`}
+                      className="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition-all border border-white/10 group/btn2"
                     >
-                      Request Demo 
-                      <ArrowRight size={18} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      Inquire 
+                      <ArrowRight size={18} className="ml-2 group-hover/btn2:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, MessageCircle, ArrowRight } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import BrandLogo from "@/components/ui/BrandLogo";
 
 export default function Footer() {
   return (
@@ -10,12 +11,12 @@ export default function Footer() {
           {/* Company Info */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl">
-                Q
-              </div>
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">
-                Quickoo Solutions
-              </span>
+              <BrandLogo
+                src="/brand-logos/Quickoo_Solutions.png"
+                alt="Quickoo Solutions"
+                wrapperClassName="w-[170px] h-10 sm:w-[200px] sm:h-12"
+                priority
+              />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mt-2">
               End-to-end digital solutions built for growth. We specialize in creative software, modern web &amp; mobile apps, and custom AI integrations.

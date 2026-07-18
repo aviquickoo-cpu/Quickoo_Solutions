@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Scene3D from "@/components/ui/Scene3D";
-
-const inter = Inter({ subsets: ["latin"] });
+import MouseShadow from "@/components/ui/MouseShadow";
 
 export const metadata: Metadata = {
   title: "Quickoo Solutions | End-to-end digital solutions",
@@ -18,8 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-blue-500/30`}>
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
+      <body className="font-sans bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-blue-500/30">
+        <MouseShadow />
         <Scene3D />
         <Header />
         <main className="flex-grow pt-20 relative z-10">
