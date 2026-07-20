@@ -4,10 +4,10 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, inquiryType, selection, message } = body;
+    const { name, email, phone, inquiryType, selection, message } = body;
 
     // Validate the required fields
-    if (!name || !email || !inquiryType || !selection || !message) {
+    if (!name || !email || !phone || !inquiryType || !selection || !message) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -27,6 +27,7 @@ export async function POST(request: Request) {
     console.log('--- New Contact Form Submission ---');
     console.log(`Name: ${name}`);
     console.log(`Email: ${email}`);
+    console.log(`Phone: ${phone}`);
     console.log(`Inquiry Type: ${inquiryType}`);
     console.log(`Selection: ${selection}`);
     console.log(`Message: ${message}`);
@@ -52,6 +53,7 @@ export async function POST(request: Request) {
         text: `
 Name: ${name}
 Email: ${email}
+Phone: ${phone}
 Inquiry Type: ${inquiryType}
 Selection: ${selection}
 
@@ -62,6 +64,7 @@ ${message}
           <h3>New Contact Request from Quickoo Solutions Website</h3>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
           <p><strong>Inquiry Type:</strong> ${inquiryType}</p>
           <p><strong>Selection:</strong> ${selection}</p>
           <h4>Message:</h4>

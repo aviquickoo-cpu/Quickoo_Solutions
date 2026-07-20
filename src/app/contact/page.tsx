@@ -1,12 +1,82 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Mail, MessageCircle, Send } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Send } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function Contact() {
+const servicesList = [
+  "Website Building",
+  "App Building",
+  "Software Maintenance",
+  "UI/UX Design",
+  "A to Z Software Solution",
+  "AI Integration",
+  "Customized AI Agent Building",
+];
+
+const productsList = [
+  "Pan Bandhu",
+  "Quickoo Recharge",
+  "API Provider",
+  "Quickoo Mart",
+  "Quickoo Travel",
+  "Quickoo Assistant",
+];
+
+function parseInquiryContext(subject: string | null) {
+  const normalized = subject?.toLowerCase().trim() ?? "";
+
+  if (!normalized) {
+    return { inquiryType: "service" as const, selection: "" };
+  }
+
+  if (normalized.includes("api provider")) {
+    return { inquiryType: "product" as const, selection: "API Provider" };
+  }
+
+  if (normalized.includes("pan bandhu")) {
+    return { inquiryType: "product" as const, selection: "Pan Bandhu" };
+  }
+
+  if (normalized.includes("quickoo recharge")) {
+    return { inquiryType: "product" as const, selection: "Quickoo Recharge" };
+  }
+
+  if (normalized.includes("quickoo mart")) {
+    return { inquiryType: "product" as const, selection: "Quickoo Mart" };
+  }
+
+  if (normalized.includes("quickoo travel")) {
+    return { inquiryType: "product" as const, selection: "Quickoo Travel" };
+  }
+
+  if (normalized.includes("quickoo assistant")) {
+    return { inquiryType: "product" as const, selection: "Quickoo Assistant" };
+  }
+
+  const serviceMatch = servicesList.find((service) =>
+    normalized.includes(service.toLowerCase())
+  );
+
+  if (serviceMatch) {
+    return { inquiryType: "service" as const, selection: serviceMatch };
+  }
+
+  return { inquiryType: "service" as const, selection: "" };
+}
+
+function ContactForm({
+  initialInquiryType,
+  initialSelection,
+}: {
+  initialInquiryType: "service" | "product";
+  initialSelection: string;
+}) {
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
-  const [inquiryType, setInquiryType] = useState<"service" | "product">("service");
+  const [inquiryType, setInquiryType] = useState<"service" | "product">(initialInquiryType);
+  const [selection, setSelection] = useState(initialSelection);
+  const [phone, setPhone] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,13 +85,15 @@ export default function Contact() {
     const formData = new FormData(e.currentTarget);
     const name = String(formData.get("name") ?? "");
     const email = String(formData.get("email") ?? "");
-    const selection = String(formData.get("selection") ?? "");
+    const phoneNumber = String(formData.get("phone") ?? "");
+    const selectionValue = String(formData.get("selection") ?? "");
     const message = String(formData.get("message") ?? "");
     const data = {
       name,
       email,
+      phone: phoneNumber,
       inquiryType,
-      selection,
+      selection: selectionValue,
       message,
     };
 
@@ -30,6 +102,7 @@ export default function Contact() {
       "",
       `Name: ${data.name}`,
       `Email: ${data.email}`,
+      `Phone: ${data.phone}`,
       `Inquiry Type: ${data.inquiryType}`,
       `Selection: ${data.selection}`,
       "",
@@ -39,16 +112,6 @@ export default function Contact() {
     const whatsappUrl = `https://wa.me/918617651623?text=${encodeURIComponent(whatsappText)}`;
     window.location.href = whatsappUrl;
   };
-
-  const servicesList = [
-    "Website Building", "App Building", "Software Maintenance", 
-    "UI/UX Design", "A to Z Software Solution", "AI Integration", 
-    "Customized AI Agent Building"
-  ];
-  
-  const productsList = [
-    "Quickoo Recharge", "Quickoo Mart", "Quickoo Assistant", "Quickoo Travel"
-  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -72,12 +135,11 @@ export default function Contact() {
       <section className="py-12 pb-24 relative z-10">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            
             {/* Contact Info Cards */}
             <div className="flex flex-col gap-6">
               <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl">
                 <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
-                
+
                 <div className="flex flex-col gap-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 shrink-0 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400">
@@ -125,101 +187,135 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="bg-slate-900/80 border border-white/10 p-8 md:p-10 rounded-3xl relative overflow-hidden backdrop-blur-md">
               <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[80px] pointer-events-none" />
-              
-              <h3 className="text-2xl font-bold mb-6 relative z-10">Send a Message</h3>
-              
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="name" className="text-sm text-slate-400 font-medium">Full Name</label>
-                      <input 
-                        required
-                        type="text" 
-                        id="name"
-                        name="name"
-                        className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="email" className="text-sm text-slate-400 font-medium">Email Address</label>
-                      <input 
-                        required
-                        type="email" 
-                        id="email"
-                        name="email"
-                        className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                        placeholder="john@example.com"
-                      />
-                    </div>
-                  </div>
 
+              <h3 className="text-2xl font-bold mb-6 relative z-10">Send a Message</h3>
+
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-2">
-                    <label className="text-sm text-slate-400 font-medium">What are you looking for?</label>
-                    <div className="grid grid-cols-2 gap-4 mb-2">
-                      <button
-                        type="button"
-                        onClick={() => setInquiryType("service")}
-                        className={`py-3 rounded-xl border text-sm font-semibold transition-all ${inquiryType === "service" ? "bg-blue-600/20 border-blue-500 text-blue-400" : "bg-slate-950 border-white/10 text-slate-400 hover:bg-slate-900"}`}
-                      >
-                        Services
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setInquiryType("product")}
-                        className={`py-3 rounded-xl border text-sm font-semibold transition-all ${inquiryType === "product" ? "bg-blue-600/20 border-blue-500 text-blue-400" : "bg-slate-950 border-white/10 text-slate-400 hover:bg-slate-900"}`}
-                      >
-                        Products
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="selection" className="text-sm text-slate-400 font-medium">
-                      Select a {inquiryType === "service" ? "Service" : "Product"}
-                    </label>
-                    <select
+                    <label htmlFor="name" className="text-sm text-slate-400 font-medium">Full Name</label>
+                    <input
                       required
-                      defaultValue=""
-                      id="selection"
-                      name="selection"
-                      className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
+                      type="text"
+                      id="name"
+                      name="name"
+                      className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="text-sm text-slate-400 font-medium">Email Address</label>
+                    <input
+                      required
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="phone" className="text-sm text-slate-400 font-medium">Phone Number</label>
+                  <input
+                    required
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                    className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="+91 98765 43210"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-slate-400 font-medium">What are you looking for?</label>
+                  <div className="grid grid-cols-2 gap-4 mb-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setInquiryType("service");
+                        setSelection("");
+                      }}
+                      className={`py-3 rounded-xl border text-sm font-semibold transition-all ${inquiryType === "service" ? "bg-blue-600/20 border-blue-500 text-blue-400" : "bg-slate-950 border-white/10 text-slate-400 hover:bg-slate-900"}`}
                     >
-                      <option value="" disabled>Choose an option...</option>
-                      {(inquiryType === "service" ? servicesList : productsList).map(item => (
-                        <option key={item} value={item}>{item}</option>
-                      ))}
-                    </select>
+                      Services
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setInquiryType("product");
+                        setSelection("");
+                      }}
+                      className={`py-3 rounded-xl border text-sm font-semibold transition-all ${inquiryType === "product" ? "bg-blue-600/20 border-blue-500 text-blue-400" : "bg-slate-950 border-white/10 text-slate-400 hover:bg-slate-900"}`}
+                    >
+                      Products
+                    </button>
                   </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="message" className="text-sm text-slate-400 font-medium">Project Details</label>
-                    <textarea 
-                      required
-                      id="message"
-                      name="message"
-                      rows={5}
-                      className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                      placeholder="Tell us about your project requirements..."
-                    ></textarea>
-                  </div>
-                  
-                  <button 
-                    disabled={formStatus === "submitting"}
-                    type="submit" 
-                    className="mt-2 bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] disabled:opacity-70 flex items-center justify-center gap-2"
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="selection" className="text-sm text-slate-400 font-medium">
+                    Select a {inquiryType === "service" ? "Service" : "Product"}
+                  </label>
+                  <select
+                    required
+                    value={selection}
+                    onChange={(event) => setSelection(event.target.value)}
+                    id="selection"
+                    name="selection"
+                    className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
                   >
-                    {formStatus === "submitting" ? (
-                      <span className="animate-pulse">Opening WhatsApp...</span>
-                    ) : (
-                      <>Send to WhatsApp <Send size={18} /></>
-                    )}
-                  </button>
-                </form>
+                    <option value="" disabled>Choose an option...</option>
+                    {(inquiryType === "service" ? servicesList : productsList).map((item) => (
+                      <option key={item} value={item}>{item}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="message" className="text-sm text-slate-400 font-medium">Project Details</label>
+                  <textarea
+                    required
+                    id="message"
+                    name="message"
+                    rows={5}
+                    className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                    placeholder="Tell us about your project requirements..."
+                  ></textarea>
+                </div>
+
+                <button
+                  disabled={formStatus === "submitting"}
+                  type="submit"
+                  className="mt-2 bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] disabled:opacity-70 flex items-center justify-center gap-2"
+                >
+                  {formStatus === "submitting" ? (
+                    <span className="animate-pulse">Opening WhatsApp...</span>
+                  ) : (
+                    <>Send to WhatsApp <Send size={18} /></>
+                  )}
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </section>
     </div>
+  );
+}
+
+export default function Contact() {
+  const searchParams = useSearchParams();
+  const initialInquiry = parseInquiryContext(searchParams.get("subject"));
+
+  return (
+    <ContactForm
+      key={searchParams.get("subject") ?? "default"}
+      initialInquiryType={initialInquiry.inquiryType}
+      initialSelection={initialInquiry.selection}
+    />
   );
 }
