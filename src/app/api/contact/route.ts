@@ -20,8 +20,8 @@ export async function POST(request: Request) {
     const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587;
     const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASS;
-    const emailTo = process.env.CONTACT_EMAIL_TO || 'admin@quickoo.co.in';
-    const emailFrom = process.env.CONTACT_EMAIL_FROM || 'noreply@quickoo.co.in';
+    const emailTo = process.env.CONTACT_EMAIL_TO || 'quickoosolutions@gmail.com';
+    const emailFrom = process.env.CONTACT_EMAIL_FROM || 'quickoosolutions@gmail.com';
 
     // Log the submission to the console for visibility (acts as a local backend)
     console.log('--- New Contact Form Submission ---');

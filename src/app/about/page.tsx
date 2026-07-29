@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight, Target, Users, Zap, Award, CheckCircle2 } from "lucide-react";
@@ -21,7 +21,7 @@ export default function About() {
 
   return (
     <div className="flex flex-col min-h-screen relative z-10">
-      {/* ── Hero ── */}
+      {/* â”€â”€ Hero â”€â”€ */}
       <section className="pt-32 pb-16 px-4 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="container relative z-10 mx-auto max-w-4xl text-center">
@@ -40,7 +40,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Our Story ── */}
+      {/* â”€â”€ Our Story â”€â”€ */}
       <section className="py-24 relative border-t border-white/5 bg-white/[0.02]">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -88,7 +88,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Core Values ── */}
+      {/* â”€â”€ Core Values â”€â”€ */}
       <section className="py-24 relative">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center mb-16">
@@ -127,7 +127,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Why Choose Us ── */}
+      {/* â”€â”€ Why Choose Us â”€â”€ */}
       <section className="py-24 relative border-y border-white/5">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">Why Partner With Us?</h2>
@@ -155,7 +155,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── CTA Banner ── */}
+      {/* â”€â”€ CTA Banner â”€â”€ */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/40 to-indigo-900/40 backdrop-blur-[1px]" />
         <div className="container relative z-10 mx-auto px-4 text-center">

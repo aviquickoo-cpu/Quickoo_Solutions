@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight, Monitor, Smartphone, Wrench, PenTool, LayoutTemplate, Brain, Cpu, MessageSquare } from "lucide-react";

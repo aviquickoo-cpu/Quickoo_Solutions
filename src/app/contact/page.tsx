@@ -175,8 +175,7 @@ function ContactForm({
                     <div>
                       <h4 className="font-semibold text-white mb-1">Email Addresses</h4>
                       <p className="text-slate-400 text-sm flex flex-col gap-1 mt-1">
-                        <a href="mailto:admin@quickoo.co.in" className="hover:text-white transition-colors">admin@quickoo.co.in</a>
-                        <a href="mailto:support@quickoo.co.in" className="hover:text-white transition-colors">support@quickoo.co.in</a>
+                        <a href="mailto:quickoosolutions@gmail.com" className="hover:text-white transition-colors">quickoosolutions@gmail.com</a>
                       </p>
                     </div>
                   </div>

@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, Sphere, MeshDistortMaterial, Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
-/* ── Floating particles field ── */
+/* â”€â”€ Floating particles field â”€â”€ */
 function StarField() {
   const ref = useRef<THREE.Points>(null);
 
@@ -41,7 +41,7 @@ function StarField() {
   );
 }
 
-/* ── Animated orb group ── */
+/* â”€â”€ Animated orb group â”€â”€ */
 function AnimatedShapes() {
   const group = useRef<THREE.Group>(null);
 
@@ -68,7 +68,7 @@ function AnimatedShapes() {
 
   return (
     <group ref={group}>
-      {/* Primary large sphere – blue */}
+      {/* Primary large sphere â€“ blue */}
       <Float speed={2} rotationIntensity={0.4} floatIntensity={1.2}>
         <Sphere args={[1, 64, 64]} position={[-3, 1.5, -4]} scale={1.6}>
           <MeshDistortMaterial
@@ -82,7 +82,7 @@ function AnimatedShapes() {
         </Sphere>
       </Float>
 
-      {/* Secondary sphere – violet */}
+      {/* Secondary sphere â€“ violet */}
       <Float speed={3} rotationIntensity={0.8} floatIntensity={1.8}>
         <Sphere args={[1, 64, 64]} position={[3, -1.5, -5]} scale={1.1}>
           <MeshDistortMaterial
@@ -96,7 +96,7 @@ function AnimatedShapes() {
         </Sphere>
       </Float>
 
-      {/* Small sphere – emerald */}
+      {/* Small sphere â€“ emerald */}
       <Float speed={1.5} rotationIntensity={0.6} floatIntensity={1.5}>
         <Sphere args={[1, 64, 64]} position={[0, -2.5, -6]} scale={0.75}>
           <MeshDistortMaterial
@@ -110,7 +110,7 @@ function AnimatedShapes() {
         </Sphere>
       </Float>
 
-      {/* Tiny sphere – pink */}
+      {/* Tiny sphere â€“ pink */}
       <Float speed={4} rotationIntensity={1.2} floatIntensity={2}>
         <Sphere args={[1, 32, 32]} position={[1.5, 2.5, -6]} scale={0.45}>
           <MeshDistortMaterial
@@ -124,7 +124,7 @@ function AnimatedShapes() {
         </Sphere>
       </Float>
 
-      {/* Tiny sphere – cyan */}
+      {/* Tiny sphere â€“ cyan */}
       <Float speed={2.5} rotationIntensity={0.9} floatIntensity={1.3}>
         <Sphere args={[1, 32, 32]} position={[-1, -0.5, -7]} scale={0.35}>
           <MeshDistortMaterial
@@ -141,7 +141,7 @@ function AnimatedShapes() {
   );
 }
 
-/* ── Scene wrapper ── */
+/* â”€â”€ Scene wrapper â”€â”€ */
 export default function Scene3D() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">

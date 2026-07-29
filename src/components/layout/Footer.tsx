@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa";
 import BrandLogo from "@/components/ui/BrandLogo";
 
 export default function Footer() {
@@ -22,11 +23,33 @@ export default function Footer() {
               End-to-end digital solutions built for growth. We specialize in creative software, modern web &amp; mobile apps, and custom AI integrations.
             </p>
             <div className="flex gap-4 mt-2">
-              {["T", "L", "I"].map((initial, i) => (
-                <div key={i} className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer text-xs">
-                  {initial}
-                </div>
-              ))}
+              <a
+                href="https://www.linkedin.com/company/quickoo-solutions/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all hover:scale-110 shadow-lg cursor-pointer"
+                title="LinkedIn"
+              >
+                <FaLinkedinIn size={20} />
+              </a>
+              <a
+                href="https://instagram.com/quickoorecharge_official"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white transition-all hover:scale-110 shadow-lg cursor-pointer"
+                title="Instagram"
+              >
+                <FaInstagram size={20} />
+              </a>
+              <a
+                href="https://facebook.com/people/Quickoo-Recharge/61573972837193"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all hover:scale-110 shadow-lg cursor-pointer"
+                title="Facebook"
+              >
+                <FaFacebookF size={20} />
+              </a>
             </div>
           </div>
 
@@ -84,8 +107,7 @@ export default function Footer() {
               <li className="flex items-center gap-3 text-slate-400 text-sm">
                 <Mail className="text-blue-500 shrink-0" size={18} />
                 <div className="flex flex-col">
-                  <a href="mailto:admin@quickoo.co.in" className="hover:text-white transition-colors">admin@quickoo.co.in</a>
-                  <a href="mailto:support@quickoo.co.in" className="hover:text-white transition-colors">support@quickoo.co.in</a>
+                  <a href="mailto:quickoosolutions@gmail.com" className="hover:text-white transition-colors">quickoosolutions@gmail.com</a>
                 </div>
               </li>
             </ul>

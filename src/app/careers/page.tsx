@@ -1,9 +1,67 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, Heart, Lightbulb, TrendingUp, Send } from "lucide-react";
+import { Briefcase, Heart, Lightbulb, TrendingUp, Send, Paperclip } from "lucide-react";
+import { useState } from "react";
 
 export default function Careers() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    number: "",
+    position: "",
+  });
+  const [file, setFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!file) {
+      alert("Please upload your resume.");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+      uploadData.append("name", formData.name);
+      uploadData.append("email", formData.email);
+      uploadData.append("number", formData.number);
+      uploadData.append("position", formData.position);
+      
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        body: uploadData,
+      });
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit application");
+      }
+      
+      const text = `*New Job Application*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Phone:* ${formData.number}\n*Position:* ${formData.position}\n\n_I have submitted my application online and my PDF resume has been sent directly to your email (quickoosolutions@gmail.com)._`;
+      const whatsappUrl = `https://wa.me/918617651623?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+    } catch (error) {
+      alert("An error occurred while uploading your resume. Please try again.");
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen relative z-10">
       {/* Hero Section */}
@@ -69,21 +127,74 @@ export default function Careers() {
             </p>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-10 text-center">
-            <div className="w-20 h-20 bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Briefcase className="text-blue-400" size={32} />
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-12 text-left max-w-3xl mx-auto">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Briefcase className="text-blue-400" size={28} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Future Opportunities</h3>
+              <p className="text-slate-400 max-w-lg mx-auto">
+                We are actively accepting resumes for upcoming projects. Fill out the form below to apply.
+              </p>
             </div>
-            <h3 className="text-2xl font-bold mb-3">Future Opportunities</h3>
-            <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-              We are actively accepting resumes for Frontend Developers, Backend Engineers, and UI/UX Designers for upcoming projects.
-            </p>
-            <a
-              href="mailto:admin@quickoo.co.in"
-              className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-full font-bold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]"
-            >
-              <Send size={18} />
-              Submit Your Resume
-            </a>
+            
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-slate-300">Full Name</label>
+                  <input required type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="John Doe" className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-slate-300">Email Address</label>
+                  <input required type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="john@example.com" className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-slate-300">Phone Number</label>
+                  <input required type="tel" name="number" value={formData.number} onChange={handleInputChange} placeholder="+91 98765 43210" className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-slate-300">Interested Position</label>
+                  <select required name="position" value={formData.position} onChange={handleInputChange} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none [&>option]:bg-slate-900">
+                    <option value="" disabled>Select a position</option>
+                    <option value="IT">IT</option>
+                    <option value="Non IT">Non IT</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Customer Support">Customer Support</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Engineer">Backend Engineer</option>
+                    <option value="UI/UX Designer">UI/UX Designer</option>
+                    <option value="AI Integration Specialist">AI Integration Specialist</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-slate-300">Upload Resume <span className="text-red-400">*</span></label>
+                <div className="relative">
+                  <input required type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                  <div className="bg-white/5 border border-dashed border-white/20 hover:border-blue-500/50 rounded-xl px-4 py-6 flex flex-col items-center justify-center gap-2 transition-colors">
+                    <Paperclip className="text-slate-400" size={24} />
+                    <p className="text-slate-300 text-sm font-medium">
+                      {file ? file.name : "Click to select your resume (PDF, DOC)"}
+                    </p>
+                    <p className="text-slate-500 text-xs">Note: Your resume will be securely uploaded and a link will be sent.</p>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-4 w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Send size={18} />
+                {isSubmitting ? "Uploading & Redirecting..." : "Submit via WhatsApp"}
+              </button>
+            </form>
           </div>
         </div>
       </section>

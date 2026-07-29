@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import TiltCard from "@/components/ui/TiltCard";
 import GlowCard from "@/components/ui/GlowCard";
 import BrandLogo from "@/components/ui/BrandLogo";
 
-/* ── Animated counter ───────────────────────────── */
+/* â”€â”€ Animated counter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -40,7 +40,7 @@ function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string })
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-/* ── Typewriter text ────────────────────────────── */
+/* â”€â”€ Typewriter text â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function TypewriterText({ texts }: { texts: string[] }) {
   const [displayText, setDisplayText] = useState("");
   const [textIdx, setTextIdx] = useState(0);
@@ -73,7 +73,7 @@ function TypewriterText({ texts }: { texts: string[] }) {
   );
 }
 
-/* ── Floating orb ───────────────────────────────── */
+/* â”€â”€ Floating orb â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function FloatingOrb({ className, delay = 0 }: { className: string; delay?: number }) {
   return (
     <motion.div
@@ -84,7 +84,7 @@ function FloatingOrb({ className, delay = 0 }: { className: string; delay?: numb
   );
 }
 
-/* ── Main page ───────────────────────────────────── */
+/* â”€â”€ Main page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 type ProductCard = {
   name: string;
   category: string;
@@ -107,12 +107,12 @@ const services = [
 ];
 
 const products: ProductCard[] = [
-  { name: "Pan Bandhu",        category: "Utility",    color: "from-blue-600 to-cyan-500",     desc: "Comprehensive PAN card services and utility management platform.",        icon: "💳", status: "Live",        link: "https://www.panbandhu.co.in/", logo: "/brand-logos/PAN_Bandhu.png", logoAlt: "Pan Bandhu" },
-  { name: "Quickoo Recharge",  category: "Utility",    color: "from-blue-500 to-cyan-500",     desc: "Fast & reliable mobile recharge and bill payment platform.",              icon: "⚡", status: "Live",        link: "https://www.quickoorecharge.co.in/", logo: "/brand-logos/Quickoo_Recharge.png", logoAlt: "Quickoo Recharge" },
-  { name: "API Provider",      category: "API Tools",  color: "from-rose-500 to-red-500",       desc: "Robust API solutions for seamless integration into your business.",      icon: "🔌", status: "Live",        link: "/contact?subject=API Provider Inquiry" },
-  { name: "Quickoo Mart",      category: "E-Commerce", color: "from-emerald-500 to-teal-500",   desc: "A curated e-commerce experience for everyday essentials.",                icon: "🛍️", status: "Upcoming",    link: "#" },
-  { name: "Quickoo Travel",    category: "Booking",    color: "from-orange-500 to-pink-500",    desc: "Seamless travel booking for flights, hotels, and curated experiences.",   icon: "✈️", status: "Ongoing",     link: "#" },
-  { name: "Quickoo Assistant", category: "AI Tool",    color: "from-indigo-500 to-purple-500",  desc: "AI-powered personal assistant for productivity & smart automation.",       icon: "🤖", status: "Coming Soon", link: "#" },
+  { name: "Pan Bandhu",        category: "Utility",    color: "from-blue-600 to-cyan-500",     desc: "Comprehensive PAN card services and utility management platform.",        icon: "ðŸ’³", status: "Live",        link: "https://www.panbandhu.co.in/", logo: "/brand-logos/PAN_Bandhu.png", logoAlt: "Pan Bandhu" },
+  { name: "Quickoo Recharge",  category: "Utility",    color: "from-blue-500 to-cyan-500",     desc: "Fast & reliable mobile recharge and bill payment platform.",              icon: "âš¡", status: "Live",        link: "https://www.quickoorecharge.co.in/", logo: "/brand-logos/Quickoo_Recharge.png", logoAlt: "Quickoo Recharge" },
+  { name: "API Provider",      category: "API Tools",  color: "from-rose-500 to-red-500",       desc: "Robust API solutions for seamless integration into your business.",      icon: "ðŸ”Œ", status: "Live",        link: "/contact?subject=API Provider Inquiry" },
+  { name: "Quickoo Mart",      category: "E-Commerce", color: "from-emerald-500 to-teal-500",   desc: "A curated e-commerce experience for everyday essentials.",                icon: "ðŸ›ï¸", status: "Upcoming",    link: "#" },
+  { name: "Quickoo Travel",    category: "Booking",    color: "from-orange-500 to-pink-500",    desc: "Seamless travel booking for flights, hotels, and curated experiences.",   icon: "âœˆï¸", status: "Ongoing",     link: "#" },
+  { name: "Quickoo Assistant", category: "AI Tool",    color: "from-indigo-500 to-purple-500",  desc: "AI-powered personal assistant for productivity & smart automation.",       icon: "ðŸ¤–", status: "Coming Soon", link: "#" },
 ];
 
 const stats = [
@@ -123,10 +123,10 @@ const stats = [
 ];
 
 const process = [
-  { step: "01", title: "Discovery",  desc: "Deep-dive into your goals, users, and business strategy.",         icon: "🔍" },
-  { step: "02", title: "Design",     desc: "Wireframes, interactive prototypes, and pixel-perfect UI/UX.",     icon: "🎨" },
-  { step: "03", title: "Develop",    desc: "Scalable, reviewed, production-ready code shipped fast.",           icon: "⚙️" },
-  { step: "04", title: "Launch",     desc: "Deployment, performance monitoring, and ongoing support.",         icon: "🚀" },
+  { step: "01", title: "Discovery",  desc: "Deep-dive into your goals, users, and business strategy.",         icon: "ðŸ”" },
+  { step: "02", title: "Design",     desc: "Wireframes, interactive prototypes, and pixel-perfect UI/UX.",     icon: "ðŸŽ¨" },
+  { step: "03", title: "Develop",    desc: "Scalable, reviewed, production-ready code shipped fast.",           icon: "âš™ï¸" },
+  { step: "04", title: "Launch",     desc: "Deployment, performance monitoring, and ongoing support.",         icon: "ðŸš€" },
 ];
 
 const techStack = ["React", "Next.js", "React Native", "Node.js", "Python", "TensorFlow", "PostgreSQL", "AWS"];
@@ -140,9 +140,9 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen relative z-10 overflow-x-hidden">
 
-      {/* ══════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO
-      ═══════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section ref={heroRef} className="relative min-h-[95vh] flex items-center justify-center overflow-hidden">
 
         {/* Grid background */}
@@ -268,9 +268,9 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ══════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           TECH MARQUEE STRIP
-      ═══════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-10 border-y border-white/5 bg-white/[0.02] overflow-hidden relative">
         <div className="flex gap-16 items-center animate-[marquee_25s_linear_infinite]" style={{ width: "max-content" }}>
           {[...techStack, ...techStack].map((tech, i) => (
@@ -285,9 +285,9 @@ export default function Home() {
         `}</style>
       </section>
 
-      {/* ══════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           WHO WE ARE
-      ═══════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-32 relative overflow-hidden">
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -309,7 +309,7 @@ export default function Home() {
               </h2>
               <p className="text-slate-300 text-lg leading-relaxed mb-8">
                 Quickoo Solutions is a modern software agency blending creative design with robust
-                engineering and cutting-edge AI to deliver premium digital products — from intuitive
+                engineering and cutting-edge AI to deliver premium digital products â€” from intuitive
                 websites to complex AI agents.
               </p>
               <div className="space-y-4">
@@ -335,7 +335,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Right – 2x2 feature mini cards */}
+            {/* Right â€“ 2x2 feature mini cards */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -367,9 +367,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           SERVICES
-      ═══════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-32 relative">
         <div className="container mx-auto px-4 max-w-7xl">
           <motion.div
@@ -432,9 +432,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           PRODUCTS
-      ═══════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-32 relative overflow-hidden border-y border-white/5">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/8 to-transparent pointer-events-none" />
 
@@ -529,9 +529,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HOW WE WORK
-      ═══════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-32 relative overflow-hidden">
         <div className="container mx-auto px-4 max-w-6xl">
           <motion.div
@@ -587,9 +587,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CTA BANNER
-      ═══════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-32 relative overflow-hidden">
         {/* Animated rotating rings */}
         <div className="absolute inset-0">
