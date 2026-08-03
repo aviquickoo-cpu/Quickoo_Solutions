@@ -1,320 +1,40 @@
-"use client";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import ContactContent from "./ContactContent";
 
-import { motion } from "framer-motion";
-import { Mail, MapPin, MessageCircle, Send } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-
-const servicesList = [
-  "Website Building",
-  "App Building",
-  "Software Maintenance",
-  "UI/UX Design",
-  "A to Z Software Solution",
-  "AI Integration",
-  "Customized AI Agent Building",
-];
-
-const productsList = [
-  "Pan Bandhu",
-  "Quickoo Recharge",
-  "API Provider",
-  "Quickoo Mart",
-  "Quickoo Travel",
-  "Quickoo Assistant",
-];
-
-function parseInquiryContext(subject: string | null) {
-  const normalized = subject?.toLowerCase().trim() ?? "";
-
-  if (!normalized) {
-    return { inquiryType: "service" as const, selection: "" };
-  }
-
-  if (normalized.includes("api provider")) {
-    return { inquiryType: "product" as const, selection: "API Provider" };
-  }
-
-  if (normalized.includes("pan bandhu")) {
-    return { inquiryType: "product" as const, selection: "Pan Bandhu" };
-  }
-
-  if (normalized.includes("quickoo recharge")) {
-    return { inquiryType: "product" as const, selection: "Quickoo Recharge" };
-  }
-
-  if (normalized.includes("quickoo mart")) {
-    return { inquiryType: "product" as const, selection: "Quickoo Mart" };
-  }
-
-  if (normalized.includes("quickoo travel")) {
-    return { inquiryType: "product" as const, selection: "Quickoo Travel" };
-  }
-
-  if (normalized.includes("quickoo assistant")) {
-    return { inquiryType: "product" as const, selection: "Quickoo Assistant" };
-  }
-
-  const serviceMatch = servicesList.find((service) =>
-    normalized.includes(service.toLowerCase())
-  );
-
-  if (serviceMatch) {
-    return { inquiryType: "service" as const, selection: serviceMatch };
-  }
-
-  return { inquiryType: "service" as const, selection: "" };
-}
-
-function ContactForm({
-  initialInquiryType,
-  initialSelection,
-}: {
-  initialInquiryType: "service" | "product";
-  initialSelection: string;
-}) {
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
-  const [inquiryType, setInquiryType] = useState<"service" | "product">(initialInquiryType);
-  const [selection, setSelection] = useState(initialSelection);
-  const [phone, setPhone] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormStatus("submitting");
-
-    const formData = new FormData(e.currentTarget);
-    const name = String(formData.get("name") ?? "");
-    const email = String(formData.get("email") ?? "");
-    const phoneNumber = String(formData.get("phone") ?? "");
-    const selectionValue = String(formData.get("selection") ?? "");
-    const message = String(formData.get("message") ?? "");
-    const data = {
-      name,
-      email,
-      phone: phoneNumber,
-      inquiryType,
-      selection: selectionValue,
-      message,
-    };
-
-    const whatsappText = [
-      "Hello Quickoo Solutions,",
-      "",
-      `Name: ${data.name}`,
-      `Email: ${data.email}`,
-      `Phone: ${data.phone}`,
-      `Inquiry Type: ${data.inquiryType}`,
-      `Selection: ${data.selection}`,
-      "",
-      `Message: ${data.message}`,
-    ].join("\n");
-
-    const whatsappUrl = `https://wa.me/918617651623?text=${encodeURIComponent(whatsappText)}`;
-    window.location.href = whatsappUrl;
-  };
-
-  return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-12 px-4 text-center relative z-10">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">Contact Us</h1>
-            <p className="text-xl text-slate-400">
-              Let&apos;s build something amazing together. Reach out to discuss your software, app, or AI project.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-12 pb-24 relative z-10">
-        <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Info Cards */}
-            <div className="flex flex-col gap-6">
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl">
-                <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
-
-                <div className="flex flex-col gap-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400">
-                      <MapPin size={24} />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-white mb-1">Office Address</h4>
-                      <p className="text-slate-400 text-sm leading-relaxed">
-                        Plot No. 836, Ground Floor, Satmile Mill Bazar,<br />
-                        Satmile, Contai, Purba Medinipur,<br />
-                        West Bengal, 721452
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400">
-                      <MessageCircle size={24} />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-white mb-1">WhatsApp & Phone</h4>
-                      <p className="text-slate-400 text-sm flex flex-col gap-1 mt-1">
-                        <a href="tel:03369029890" className="hover:text-white transition-colors">Tel: 033 690 29890</a>
-                        <a href="https://wa.me/918617651623" target="_blank" rel="noreferrer" className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium">WhatsApp: 8617651623</a>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400">
-                      <Mail size={24} />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-white mb-1">Email Addresses</h4>
-                      <p className="text-slate-400 text-sm flex flex-col gap-1 mt-1">
-                        <a href="mailto:quickoosolutions@gmail.com" className="hover:text-white transition-colors">quickoosolutions@gmail.com</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="bg-slate-900/80 border border-white/10 p-8 md:p-10 rounded-3xl relative overflow-hidden backdrop-blur-md">
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[80px] pointer-events-none" />
-
-              <h3 className="text-2xl font-bold mb-6 relative z-10">Send a Message</h3>
-
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-sm text-slate-400 font-medium">Full Name</label>
-                    <input
-                      required
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="text-sm text-slate-400 font-medium">Email Address</label>
-                    <input
-                      required
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="text-sm text-slate-400 font-medium">Phone Number</label>
-                  <input
-                    required
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="+91 98765 43210"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm text-slate-400 font-medium">What are you looking for?</label>
-                  <div className="grid grid-cols-2 gap-4 mb-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setInquiryType("service");
-                        setSelection("");
-                      }}
-                      className={`py-3 rounded-xl border text-sm font-semibold transition-all ${inquiryType === "service" ? "bg-blue-600/20 border-blue-500 text-blue-400" : "bg-slate-950 border-white/10 text-slate-400 hover:bg-slate-900"}`}
-                    >
-                      Services
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setInquiryType("product");
-                        setSelection("");
-                      }}
-                      className={`py-3 rounded-xl border text-sm font-semibold transition-all ${inquiryType === "product" ? "bg-blue-600/20 border-blue-500 text-blue-400" : "bg-slate-950 border-white/10 text-slate-400 hover:bg-slate-900"}`}
-                    >
-                      Products
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="selection" className="text-sm text-slate-400 font-medium">
-                    Select a {inquiryType === "service" ? "Service" : "Product"}
-                  </label>
-                  <select
-                    required
-                    value={selection}
-                    onChange={(event) => setSelection(event.target.value)}
-                    id="selection"
-                    name="selection"
-                    className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
-                  >
-                    <option value="" disabled>Choose an option...</option>
-                    {(inquiryType === "service" ? servicesList : productsList).map((item) => (
-                      <option key={item} value={item}>{item}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="message" className="text-sm text-slate-400 font-medium">Project Details</label>
-                  <textarea
-                    required
-                    id="message"
-                    name="message"
-                    rows={5}
-                    className="bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                    placeholder="Tell us about your project requirements..."
-                  ></textarea>
-                </div>
-
-                <button
-                  disabled={formStatus === "submitting"}
-                  type="submit"
-                  className="mt-2 bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] disabled:opacity-70 flex items-center justify-center gap-2"
-                >
-                  {formStatus === "submitting" ? (
-                    <span className="animate-pulse">Opening WhatsApp...</span>
-                  ) : (
-                    <>Send to WhatsApp <Send size={18} /></>
-                  )}
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description:
+    "Get in touch with Quickoo Solutions. Contact us for website development, app building, AI integration, or any of our digital services. Located in Contai, West Bengal. Available via WhatsApp, phone, and email.",
+  alternates: {
+    canonical: "https://www.quickoosolutions.com/contact",
+  },
+  openGraph: {
+    title: "Contact Quickoo Solutions",
+    description:
+      "Ready to start your project? Reach out to discuss your software, app, or AI project. We are available via WhatsApp, phone, and email.",
+    url: "https://www.quickoosolutions.com/contact",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Contact Quickoo Solutions",
+      },
+    ],
+  },
+  twitter: {
+    title: "Contact Quickoo Solutions",
+    description:
+      "Ready to start your project? Reach out to discuss your software, app, or AI project.",
+    images: ["/og-image.png"],
+  },
+};
 
 export default function Contact() {
-  const searchParams = useSearchParams();
-  const initialInquiry = parseInquiryContext(searchParams.get("subject"));
-
   return (
-    <ContactForm
-      key={searchParams.get("subject") ?? "default"}
-      initialInquiryType={initialInquiry.inquiryType}
-      initialSelection={initialInquiry.selection}
-    />
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">Loading...</div>}>
+      <ContactContent />
+    </Suspense>
   );
 }

@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Code, Smartphone, Palette, Settings, Brain, Bot, CheckCircle2, Zap, Users, Award, TrendingUp } from "lucide-react";
+import { ArrowRight, Code, Smartphone, Palette, Settings, Brain, Bot, CheckCircle2, Zap, Users, Award, TrendingUp, CreditCard, ShieldCheck, Plug2, ShoppingCart, Plane, Cpu, Search, PenTool, Code2, Rocket } from "lucide-react";
 import TiltCard from "@/components/ui/TiltCard";
 import GlowCard from "@/components/ui/GlowCard";
 import BrandLogo from "@/components/ui/BrandLogo";
@@ -90,7 +90,7 @@ type ProductCard = {
   category: string;
   color: string;
   desc: string;
-  icon: string;
+  icon: React.ComponentType<{ size?: number }>;
   status: string;
   link: string;
   logo?: string;
@@ -107,12 +107,12 @@ const services = [
 ];
 
 const products: ProductCard[] = [
-  { name: "Pan Bandhu",        category: "Utility",    color: "from-blue-600 to-cyan-500",     desc: "Comprehensive PAN card services and utility management platform.",        icon: "ðŸ’³", status: "Live",        link: "https://www.panbandhu.co.in/", logo: "/brand-logos/PAN_Bandhu.png", logoAlt: "Pan Bandhu" },
-  { name: "Quickoo Recharge",  category: "Utility",    color: "from-blue-500 to-cyan-500",     desc: "Fast & reliable mobile recharge and bill payment platform.",              icon: "âš¡", status: "Live",        link: "https://www.quickoorecharge.co.in/", logo: "/brand-logos/Quickoo_Recharge.png", logoAlt: "Quickoo Recharge" },
-  { name: "API Provider",      category: "API Tools",  color: "from-rose-500 to-red-500",       desc: "Robust API solutions for seamless integration into your business.",      icon: "ðŸ”Œ", status: "Live",        link: "/contact?subject=API Provider Inquiry" },
-  { name: "Quickoo Mart",      category: "E-Commerce", color: "from-emerald-500 to-teal-500",   desc: "A curated e-commerce experience for everyday essentials.",                icon: "ðŸ›ï¸", status: "Upcoming",    link: "#" },
-  { name: "Quickoo Travel",    category: "Booking",    color: "from-orange-500 to-pink-500",    desc: "Seamless travel booking for flights, hotels, and curated experiences.",   icon: "âœˆï¸", status: "Ongoing",     link: "#" },
-  { name: "Quickoo Assistant", category: "AI Tool",    color: "from-indigo-500 to-purple-500",  desc: "AI-powered personal assistant for productivity & smart automation.",       icon: "ðŸ¤–", status: "Coming Soon", link: "#" },
+  { name: "Pan Bandhu",        category: "Utility",    color: "from-blue-600 to-cyan-500",     desc: "Comprehensive PAN card services and utility management platform.",        icon: CreditCard, status: "Live",        link: "https://www.panbandhu.co.in/", logo: "/brand-logos/PAN_Bandhu.png", logoAlt: "Pan Bandhu" },
+  { name: "Quickoo Recharge",  category: "Utility",    color: "from-blue-500 to-cyan-500",     desc: "Fast & reliable mobile recharge and bill payment platform.",              icon: ShieldCheck, status: "Live",        link: "https://www.quickoorecharge.co.in/", logo: "/brand-logos/Quickoo_Recharge.png", logoAlt: "Quickoo Recharge" },
+  { name: "API Provider",      category: "API Tools",  color: "from-rose-500 to-red-500",       desc: "Robust API solutions for seamless integration into your business.",      icon: Plug2, status: "Live",        link: "/contact?subject=API Provider Inquiry" },
+  { name: "Quickoo Mart",      category: "E-Commerce", color: "from-emerald-500 to-teal-500",   desc: "A curated e-commerce experience for everyday essentials.",                icon: ShoppingCart, status: "Upcoming",    link: "#" },
+  { name: "Quickoo Travel",    category: "Booking",    color: "from-orange-500 to-pink-500",    desc: "Seamless travel booking for flights, hotels, and curated experiences.",   icon: Plane, status: "Ongoing",     link: "#" },
+  { name: "Quickoo Assistant", category: "AI Tool",    color: "from-indigo-500 to-purple-500",  desc: "AI-powered personal assistant for productivity & smart automation.",       icon: Cpu, status: "Coming Soon", link: "#" },
 ];
 
 const stats = [
@@ -123,10 +123,10 @@ const stats = [
 ];
 
 const process = [
-  { step: "01", title: "Discovery",  desc: "Deep-dive into your goals, users, and business strategy.",         icon: "ðŸ”" },
-  { step: "02", title: "Design",     desc: "Wireframes, interactive prototypes, and pixel-perfect UI/UX.",     icon: "ðŸŽ¨" },
-  { step: "03", title: "Develop",    desc: "Scalable, reviewed, production-ready code shipped fast.",           icon: "âš™ï¸" },
-  { step: "04", title: "Launch",     desc: "Deployment, performance monitoring, and ongoing support.",         icon: "ðŸš€" },
+  { step: "01", title: "Discovery",  desc: "Deep-dive into your goals, users, and business strategy.",         icon: Search },
+  { step: "02", title: "Design",     desc: "Wireframes, interactive prototypes, and pixel-perfect UI/UX.",     icon: PenTool },
+  { step: "03", title: "Develop",    desc: "Scalable, reviewed, production-ready code shipped fast.",           icon: Code2 },
+  { step: "04", title: "Launch",     desc: "Deployment, performance monitoring, and ongoing support.",         icon: Rocket },
 ];
 
 const techStack = ["React", "Next.js", "React Native", "Node.js", "Python", "TensorFlow", "PostgreSQL", "AWS"];
@@ -481,13 +481,13 @@ export default function Home() {
                             wrapperClassName="w-[160px] h-11"
                           />
                         ) : (
-                          <motion.span
+                          <motion.div
                             whileHover={{ rotate: [0, -15, 15, 0] }}
                             transition={{ duration: 0.5 }}
-                            className="text-3xl block"
+                            className="flex items-center justify-center text-white"
                           >
-                            {product.icon}
-                          </motion.span>
+                            <product.icon size={32} />
+                          </motion.div>
                         )}
                         <div className="flex flex-wrap items-center gap-3">
                           <span className="text-xs font-bold uppercase tracking-widest text-slate-400 bg-white/5 px-3 py-1 rounded-full border border-white/10">
@@ -570,9 +570,9 @@ export default function Home() {
                   <motion.div
                     whileHover={{ scale: 1.12, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
-                    className="relative w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl mb-5 group-hover:border-blue-500/40 group-hover:bg-white/10 transition-all shadow-lg"
+                    className="relative w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 mb-5 group-hover:border-blue-500/40 group-hover:bg-white/10 transition-all shadow-lg"
                   >
-                    {p.icon}
+                    <p.icon size={32} />
                     {/* Step number badge */}
                     <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-white text-[10px] font-black flex items-center justify-center shadow-lg">
                       {idx + 1}

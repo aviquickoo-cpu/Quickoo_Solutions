@@ -22,33 +22,36 @@ export default function Footer() {
             <p className="text-slate-400 text-sm leading-relaxed mt-2">
               End-to-end digital solutions built for growth. We specialize in creative software, modern web &amp; mobile apps, and custom AI integrations.
             </p>
-            <div className="flex gap-4 mt-2">
+            <div className="flex gap-4 mt-2" role="list" aria-label="Social media links">
               <a
                 href="https://www.linkedin.com/company/quickoo-solutions/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow Quickoo Solutions on LinkedIn"
                 className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all hover:scale-110 shadow-lg cursor-pointer"
-                title="LinkedIn"
+                role="listitem"
               >
-                <FaLinkedinIn size={20} />
+                <FaLinkedinIn size={20} aria-hidden="true" />
               </a>
               <a
                 href="https://instagram.com/quickoorecharge_official"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow Quickoo Solutions on Instagram"
                 className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white transition-all hover:scale-110 shadow-lg cursor-pointer"
-                title="Instagram"
+                role="listitem"
               >
-                <FaInstagram size={20} />
+                <FaInstagram size={20} aria-hidden="true" />
               </a>
               <a
                 href="https://facebook.com/people/Quickoo-Recharge/61573972837193"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow Quickoo Solutions on Facebook"
                 className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-blue-500 hover:text-white transition-all hover:scale-110 shadow-lg cursor-pointer"
-                title="Facebook"
+                role="listitem"
               >
-                <FaFacebookF size={20} />
+                <FaFacebookF size={20} aria-hidden="true" />
               </a>
             </div>
           </div>
