@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Target, Users, Zap, Award, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function AboutContent() {
   const containerVariants = {
@@ -51,11 +52,15 @@ export default function AboutContent() {
               className="lg:w-1/2 relative"
             >
               <div className="aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden relative bg-slate-900 border border-white/10 shadow-2xl">
-                {/* Fallback pattern since we don't have a team image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 to-emerald-900/40 backdrop-blur-sm flex items-center justify-center">
-                  <Users size={120} className="text-white/20" aria-hidden="true" />
-                </div>
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                <Image
+                  src="/about-quickoo.png"
+                  alt="Quickoo Solutions Team"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
               </div>
               <div className="absolute -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-2xl shadow-xl hidden md:block">
                 <p className="text-4xl font-black mb-1">5+</p>
