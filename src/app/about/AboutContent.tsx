@@ -49,9 +49,9 @@ export default function AboutContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:w-1/2 relative"
+              className="w-full lg:w-1/2 relative"
             >
-              <div className="aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden relative bg-slate-900 border border-white/10 shadow-2xl">
+              <div className="aspect-[4/3] rounded-3xl overflow-hidden relative bg-slate-900 border border-white/10 shadow-2xl">
                 <Image
                   src="/about-quickoo.png"
                   alt="Quickoo Solutions Team"
@@ -62,7 +62,7 @@ export default function AboutContent() {
                 />
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-2xl shadow-xl hidden md:block">
+              <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-blue-600 text-white p-4 sm:p-6 rounded-2xl shadow-xl">
                 <p className="text-4xl font-black mb-1">5+</p>
                 <p className="text-sm font-semibold opacity-90">Years of Innovation</p>
               </div>

@@ -79,9 +79,9 @@ export const metadata: Metadata = {
   },
   category: "technology",
   icons: {
-    icon: "/brand-logos/Quickoo_Solutions.png",
-    shortcut: "/brand-logos/Quickoo_Solutions.png",
-    apple: "/brand-logos/Quickoo_Solutions.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 
