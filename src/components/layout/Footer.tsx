@@ -117,6 +117,26 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Map Section */}
+        <div className="mb-12">
+          <h3 className="text-white font-semibold mb-4 text-lg flex items-center gap-2">
+            <MapPin className="text-blue-500" size={20} />
+            Our Location
+          </h3>
+          <div className="rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-blue-900/10">
+            <iframe
+              title="Quickoo Solutions Office Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3694.5!2d87.647!3d21.8118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDQ4JzQyLjUiTiA4N8KwMzgnNDkuMiJF!5e0!3m2!1sen!2sin!4v1700000000000"
+              width="100%"
+              height="250"
+              style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(0.85) brightness(1.1)" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
+
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-sm">
             &copy; {new Date().getFullYear()} Quickoo Solutions. All rights reserved.

@@ -301,6 +301,44 @@ function ContactForm({
           </div>
         </div>
       </section>
+
+      {/* Map Section */}
+      <section className="pb-24 relative z-10">
+        <div className="container mx-auto max-w-6xl px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden">
+              <div className="p-8 pb-0">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400">
+                    <MapPin size={20} aria-hidden="true" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-white">Find Us on the Map</h2>
+                </div>
+                <p className="text-slate-400 text-sm ml-[52px] mb-6">
+                  Plot No. 836, Ground Floor, Satmile Mill Bazar, Contai, Purba Medinipur, West Bengal 721452
+                </p>
+              </div>
+              <div className="rounded-b-3xl overflow-hidden">
+                <iframe
+                  title="Quickoo Solutions Office Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3694.5!2d87.647!3d21.8118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDQ4JzQyLjUiTiA4N8KwMzgnNDkuMiJF!5e0!3m2!1sen!2sin!4v1700000000000"
+                  width="100%"
+                  height="400"
+                  style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(0.85) brightness(1.1)" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }
