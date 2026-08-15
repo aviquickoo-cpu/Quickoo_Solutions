@@ -126,7 +126,7 @@ export default function Footer() {
           <div className="rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-blue-900/10">
             <iframe
               title="Quickoo Solutions Office Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3694.5!2d87.647!3d21.8118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDQ4JzQyLjUiTiA4N8KwMzgnNDkuMiJF!5e0!3m2!1sen!2sin!4v1700000000000"
+              src="https://maps.google.com/maps?q=Quickoo%20Solutions,%20Plot%20No.%20836,%20Ground%20Floor,%20Satmile%20Mill%20Bazar,%20Satmile,%20Contai,%20Purba%20Medinipur,%20West%20Bengal,%20721452&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="250"
               style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(0.85) brightness(1.1)" }}
